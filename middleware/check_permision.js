@@ -5,7 +5,6 @@ const Path = require('../config/path');
 
 module.exports.check_permison = async function(req, res, next){
     const payLoad = jwt.decode(req.token);
-    console.log(payLoad);
     if (payLoad.type == 'admin')
         next();
     else if (payLoad.type == 'normal_user') {
@@ -27,6 +26,7 @@ module.exports.check_permison = async function(req, res, next){
             //check can access resouce
             let count = 0;
             let path_array = Path.path_user[action_http];
+            console.log(path_array);
             for(i=0; i < path_array.lenght; i++){
                 for(path in path_array[i])
                     if(path == url_path)
