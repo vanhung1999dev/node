@@ -11,4 +11,10 @@ router.get('/getAll', verify.verifyToken, check.check_permison, admin_controller
 router.put('/age/:age', verify.verifyToken, check.check_permison, admin_controller.updateAdmin);
 router.put('/delete/:id', verify.verifyToken, check.check_permison, admin_controller.deleteAdmin);
 
+router.post('/insert/book', verify.verifyToken, check.check_permison, admin_controller.createBook);
+router.get('/get/book/:id', verify.verifyToken, check.check_permison, admin_controller.getBook);
+router.get('/getAll/books', verify.verifyToken, check.check_permison, admin_controller.getBooks);
+router.put('/update/book/name/:name', verify.verifyToken, check.check_permison, admin_controller.updateBook);
+router.delete('/delete/book/:id', verify.verifyToken, check.check_permison, admin_controller.deleteBook);
+
 module.exports = router;
