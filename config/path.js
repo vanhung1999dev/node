@@ -7,7 +7,7 @@ const path_admin = {
 
 const path_user = {
     'POST': ['\/insert', '\/insert\/book'],
-    'GET': ['\/id\/*', '\/get\/book\/*', '\/getAll\/books'],
+    'GET': ['\/id\/*', '\/get\/book\/*', '\/getAll\/book'],
     'UPDATE': ['\/update\/name/*'],
     'DELETE': ['\/delete\/id\/*']
 };

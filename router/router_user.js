@@ -10,4 +10,8 @@ router.get('/id/:id', verify.verifyToken, check.check_permison, User_Controller.
 router.put('/update/name/:name', verify.verifyToken, check.check_permison, User_Controller.updateUser);
 router.delete('/delete/id?id=1', verify.verifyToken, check.check_permison, User_Controller.deleteUser);
 
+router.post('/insert/book', verify.verifyToken, check.check_permison, User_Controller.createBook);
+router.get('/get/book/:id', verify.verifyToken, check.check_permison, User_Controller.getBook);
+router.get('/getAll/book', verify.verifyToken, check.check_permison, User_Controller.getBooks);
+
 module.exports = router;

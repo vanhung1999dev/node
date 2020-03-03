@@ -1,4 +1,5 @@
 const User_Table = require('../model/normal_user');
+const Book_Table = require('../model/book');
 const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -74,6 +75,42 @@ module.exports.deleteUser = async (req, res) => {
             }
         });
         res.sendStatus(200).send(result);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+module.exports.createBook = async (req, res) => {
+    try {
+        let book = await Book_Table.create({
+            name: 'bi quyet lam giau',
+            author: 'Tony',
+            totalPage: 100
+        });
+        res.send(book);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+module.exports.getBook = async (req, res) => {
+    try {
+        let id_book = req.params.id;
+        let book = await Book_Table.findOne({
+            where: {
+                id: id_book
+            }
+        });
+        res.send(book);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+module.exports.getBooks = async (req, res) => {
+    try {
+        let books = await Book_Table.findAll();
+        res.send(books);
     } catch (error) {
         console.log(error);
     }

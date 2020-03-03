@@ -35,10 +35,12 @@ module.exports.check_permison = async function (req, res, next) {
                 for (i = 0; i < path_array.length; i++) {
                     console.log(path_array[i]);
                     let pattern = RegExp(path_array[i]);
+                    console.log('pattern:' + pattern);
+                    console.log(pattern.test(url_path));
                     if (pattern.test(url_path))
                         count++;
                 }
-                if (count == 1)
+                if (count >= 1)
                     next();
                 else
                     throw new Error('you can not access to resouce');
