@@ -115,3 +115,30 @@ module.exports.getBooks = async (req, res) => {
         console.log(error);
     }
 };
+
+module.exports.updateBook = async (req,res) => {
+    try {
+        const name_book = req.params;
+        const result = await Book_Table.update({name: name_book},{
+            where: {
+                id: 2
+            }
+        });
+        res.send(result);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+module.exports.deleteBook = async (req,res) => {
+    try {
+        const reuslt = await Book_Table.destroy({
+            where: {
+                id: 3
+            }
+        });
+        res.sendStatus(200).send(reuslt);
+    } catch (error) {
+        console.log(error);
+    }
+};

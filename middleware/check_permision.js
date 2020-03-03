@@ -1,7 +1,7 @@
 const Permision_Table = require('../model/permision');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const Path = require('../config/path');
+const Source = require('../config/path');
 const url = require('url');
 
 module.exports.check_permison = async function (req, res, next) {
@@ -11,33 +11,31 @@ module.exports.check_permison = async function (req, res, next) {
     else if (payLoad.type == 'user') {
         try {
             const action_http = req.method;
-            const url_path = req.url;
-            const path = url_path.pathname;
+            const path_name = url.parse(req.url).pathname;
             console.log(action_http);
-            console.log(url_path);
+            console.log(path_name);
 
             //check can put post get delete
             const isAccess = await Permision_Table.findOne({
                 attributes: [action_http],
                 where: {
-                    type_user: 'normal_user'
+                    type_user: payLoad.type
                 }
             });
             console.log(isAccess.dataValues[action_http]);// ??
             if (isAccess.dataValues[action_http] == 0) {
                 throw new Error('you can not access');
             } else {
-
                 //check can access resouce
                 let count = 0;
-                let path_array = Path.path_user[action_http];
-                console.log('path_array:' + path_array);
-                for (i = 0; i < path_array.length; i++) {
-                    console.log(path_array[i]);
-                    let pattern = RegExp(path_array[i]);
+                let array = Source.path_user[action_http];
+                console.log('path_array:' + array);
+                for (i = 0; i < array.length; i++) {
+                    console.log(array[i]);
+                    let pattern = RegExp(array[i]);
                     console.log('pattern:' + pattern);
-                    console.log(pattern.test(url_path));
-                    if (pattern.test(url_path))
+                    console.log(pattern.test(path_name));
+                    if (pattern.test(path_name))
                         count++;
                 }
                 if (count >= 1)

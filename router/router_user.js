@@ -13,5 +13,7 @@ router.delete('/delete/id?id=1', verify.verifyToken, check.check_permison, User_
 router.post('/insert/book', verify.verifyToken, check.check_permison, User_Controller.createBook);
 router.get('/get/book/:id', verify.verifyToken, check.check_permison, User_Controller.getBook);
 router.get('/getAll/book', verify.verifyToken, check.check_permison, User_Controller.getBooks);
+router.put('/update/:name', verify.verifyToken, check.check_permison, User_Controller.updateBook);
+router.delete('/delete', verify.verifyToken, check.check_permison, User_Controller.deleteBook);
 
 module.exports = router;
