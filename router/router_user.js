@@ -2,18 +2,18 @@ const Express = require('express');
 const router = Express.Router();
 const User_Controller = require('../controller/userController');
 const verify = require('../middleware/verify_token');
-const check = require('../middleware/check_permision');
+const Login = require('../middleware/login');
 
-router.post('/login', User_Controller.login);
-router.post('/insert', verify.verifyToken, check.check_permison, User_Controller.createUser);
-router.get('/id/:id', verify.verifyToken, check.check_permison, User_Controller.getUser);
-router.put('/update/name/:name', verify.verifyToken, check.check_permison, User_Controller.updateUser);
-router.delete('/delete/id?id=1', verify.verifyToken, check.check_permison, User_Controller.deleteUser);
+router.post('/login', Login.user_login);
+router.post('/insert', User_Controller.createUser);
+router.get('/id/:id', User_Controller.getUser);
+router.put('/update/name/:name', User_Controller.updateUser);
+router.delete('/delete/id?id=1', User_Controller.deleteUser);
 
-router.post('/insert/book', verify.verifyToken, check.check_permison, User_Controller.createBook);
-router.get('/get/book/:id', verify.verifyToken, check.check_permison, User_Controller.getBook);
-router.get('/getAll/book', verify.verifyToken, check.check_permison, User_Controller.getBooks);
-router.put('/update/:name', verify.verifyToken, check.check_permison, User_Controller.updateBook);
-router.delete('/delete', verify.verifyToken, check.check_permison, User_Controller.deleteBook);
+router.post('/insert/book', User_Controller.createBook);
+router.get('/get/book/:id', User_Controller.getBook);
+router.get('/getAll/book', User_Controller.getBooks);
+router.put('/update/:name', User_Controller.updateBook);
+router.delete('/delete', User_Controller.deleteBook);
 
 module.exports = router;

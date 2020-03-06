@@ -4,26 +4,6 @@ const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-module.exports.login = async (req, res) => {
-    try {
-        const { name, password } = req.body;
-        const user = await User_Table.findOne({
-            where: {
-                [Op.and]: [
-                    name, password
-                ]
-            }
-        });
-        if (user) {
-            const token = jwt.sign({ type: user.type_user }, process.env.Secret_Key);
-            res.send(token);
-        } else
-            throw new Error('username or password is not corrrect!!!');
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 module.exports.createUser = async (req, res) => {
     try {
         const user = await User_Table.create({
