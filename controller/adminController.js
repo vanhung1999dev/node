@@ -75,7 +75,7 @@ module.exports.deleteAdmin = async (req, res) => {
     }
 };
 
-module.exports.createBook = async (req,res) => {
+module.exports.createBook = async (req, res) => {
     try {
         const book = await Book_Table.create({
             name: 'nguoi gia kim',
@@ -88,8 +88,9 @@ module.exports.createBook = async (req,res) => {
     }
 };
 
-module.exports.getBook = async (req,res) => {
+module.exports.getBook = async (req, res) => {
     try {
+        console.log('params',req.params);
         const id_book = req.params.id;
         const book = await Book_Table.findOne({
             where: {
@@ -102,7 +103,7 @@ module.exports.getBook = async (req,res) => {
     }
 };
 
-module.exports.getBooks = async (req,res) => {
+module.exports.getBooks = async (req, res) => {
     try {
         const boooks = await Book_Table.findAll();
         res.send(boooks);
@@ -111,10 +112,10 @@ module.exports.getBooks = async (req,res) => {
     }
 };
 
-module.exports.updateBook = async (req,res) => {
+module.exports.updateBook = async (req, res) => {
     try {
         const name_book = req.params.name;
-        const result = await Book_Table.update({name: name_book},{
+        const result = await Book_Table.update({ name: name_book }, {
             where: {
                 id: 1
             }
@@ -125,15 +126,17 @@ module.exports.updateBook = async (req,res) => {
     }
 };
 
-module.exports.deleteBook = async (req,res) => {
+module.exports.deleteBook = async (req, res) => {
     try {
+        const name = req.cookies.name;
         const id_book = req.params.id;
         const result = await Book_Table.destroy({
             where: {
                 id: id_book
             }
         });
-        res.sendStatus(200).send(result);
+        console.log(name);
+        res.sendStatus(200).send(name);
     } catch (error) {
         console.log(error);
     }

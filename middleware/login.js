@@ -1,6 +1,7 @@
 const Admin_Table = require('../model/admin');
 const User_Table = require('../model/normal_user');
-const {Op} = require('sequelize');
+const { Op } = require('sequelize');
+const jwt = require('jsonwebtoken');
 
 
 module.exports.admin_login = async (req, res) => {
@@ -15,7 +16,8 @@ module.exports.admin_login = async (req, res) => {
             }
         });
         if (admin) {
-            const token = jwt.sign({ type: admin.type_user }, process.env.Secret_Key);
+            const token = jwt.sign({ type: admin.type_user, adminId: admin.id, name: admin.name },
+                process.env.Secret_Key);
             res.send(token);
         } else
             res.send('invalid name or password');
@@ -23,9 +25,6 @@ module.exports.admin_login = async (req, res) => {
         console.log(error);
     }
 };
-
-
-
 
 module.exports.user_login = async (req, res) => {
     try {
@@ -38,7 +37,8 @@ module.exports.user_login = async (req, res) => {
             }
         });
         if (user) {
-            const token = jwt.sign({ type: user.type_user }, process.env.Secret_Key);
+            const token = jwt.sign({ type: user.type_user, userId: user.id, name: user.name },
+                process.env.Secret_Key);
             res.send(token);
         } else
             throw new Error('username or password is not corrrect!!!');
